@@ -54,7 +54,7 @@ console.log(range); // Output: ["192.168.1.0", "192.168.1.255"]
 * `start_ip`: The start IP address, e.g. "192.168.1.0"
 * `end_ip`: The end IP address, e.g. "192.168.1.255"
 * `chunk_size`: The number of IP addresses to include in each sub-range, defaults to 1000
-* Returns: An array of all IP addresses in the given range
+* Returns: An array of two IP addresses representing the sub-range of addresses, e.g. ["192.168.1.0", "192.168.1.3"]
 
 Example:
 ```javascript
@@ -62,7 +62,7 @@ import { getSubRange } from "@supercat1337/ip-tools";
 const start_ip = '192.168.1.0';
 const end_ip = '192.168.1.3';
 const subRange = getSubRange(start_ip, end_ip);
-console.log(subRange); // Output: ["192.168.1.0", "192.168.1.2", "192.168.1.3"]
+console.log(subRange); // Output: ["192.168.1.0", "192.168.1.3"]
 ```
 
 ### `getTotalIPs(ip1, ip2)`
@@ -199,6 +199,22 @@ const isRange = isRange(ipRange);
 console.log(isRange); // Output: true
 ```
 
+### `generateArrayOfIp(start_ip, end_ip, chunk_size=1000)`
+
+* `start_ip`: The start IP address, e.g. "192.168.1.0"
+* `end_ip`: The end IP address, e.g. "192.168.1.255"
+* `chunk_size`: The number of IP addresses to include in each sub-range, defaults to 1000
+* Returns: An array of IP addresses in the range [start_ip, end_ip] with at most chunk_size elements
+
+Example:
+```javascript
+import { generateArrayOfIp } from "@supercat1337/ip-tools";
+const start_ip = '192.168.1.0';
+const end_ip = '192.168.1.255';
+const chunk_size = 1000;
+const array = generateArrayOfIp(start_ip, end_ip, chunk_size);
+console.log(array); // Output: ["192.168.1.0", "192.168.1.1", "192.168.1.2", ...]
+```
 
 ## License
 MIT License

@@ -85,4 +85,14 @@ export function isIPv4(ip: string): boolean;
  * @returns {boolean} - True if it is a valid IPv6 address, false otherwise.
  */
 export function isIPv6(ip: string): boolean;
+/**
+ * Generates an array of IP addresses between the given start and end IP
+ * addresses, limited to the given chunk size.
+ * @param {string} start_ip - The start of the range.
+ * @param {string} end_ip - The end of the range.
+ * @param {number} [chunk_size=1000] - The maximum number of IP addresses in the array.
+ * @returns {Array.<string>} - An array of IP addresses in the range [start_ip, end_ip]
+ *     with at most chunk_size elements.
+ */
+export function generateArrayOfIp(start_ip: string, end_ip: string, chunk_size?: number): Array<string>;
 //# sourceMappingURL=index.d.ts.map

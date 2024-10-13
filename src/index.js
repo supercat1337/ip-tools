@@ -31,7 +31,7 @@ export function getTotalIPs(ip1, ip2) {
     const firstAddressLong = ipToLong(ip1);
     const lastAddressLong = ipToLong(ip2);
 
-    const totalIPs = lastAddressLong - firstAddressLong;
+    const totalIPs = lastAddressLong - firstAddressLong + 1;
     return totalIPs;
 }
 
@@ -199,4 +199,40 @@ export function isIPv4(ip) {
  */
 export function isIPv6(ip) {
     return /^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/.test(ip);
+}
+
+/**
+ * Generates an array of IP addresses between the given start and end IP
+ * addresses, limited to the given chunk size.
+ * @param {string} start_ip - The start of the range.
+ * @param {string} end_ip - The end of the range.
+ * @param {number} [chunk_size=1000] - The maximum number of IP addresses in the array.
+ * @returns {Array.<string>} - An array of IP addresses in the range [start_ip, end_ip]
+ *     with at most chunk_size elements.
+ */
+export function generateArrayOfIp(start_ip, end_ip, chunk_size = 1000) {
+    let array = [];
+    let start_ip_long = ipToLong(start_ip);
+    let end_ip_long = ipToLong(end_ip);
+
+    if (start_ip_long > end_ip_long) {
+        throw new Error('Start IP is greater than end IP');
+    }
+
+    if (start_ip_long === end_ip_long) {
+        array.push(ipFromLong(start_ip_long));
+        return array;
+    }
+
+    if (chunk_size < end_ip_long - start_ip_long) {
+        end_ip_long = start_ip_long + chunk_size;
+    }
+
+    let ip_long = start_ip_long;
+    while (ip_long <= end_ip_long) {
+        array.push(ipFromLong(ip_long));
+        ip_long += 1;
+    }
+
+    return array;
 }
